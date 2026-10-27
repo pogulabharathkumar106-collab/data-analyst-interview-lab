@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Practice beginner MySQL ORDER BY interview questions in Data Analyst Interview Lab.">
+<title>Data Analyst Interview Lab | MySQL ORDER BY</title>
+<style>
+:root{--bg:#080d1b;--panel:#111a2e;--panel2:#0d1528;--line:#263552;--text:#edf3ff;--muted:#a7b5ce;--cyan:#42d9f5;--purple:#9b8cff;--green:#44dfa0;--red:#ff7285;--yellow:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#182345 0%,var(--bg) 48%);color:var(--text);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+.wrap{max-width:900px;margin:auto;padding:22px 16px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.3px}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#08101f;font-weight:950;font-size:18px;box-shadow:0 8px 28px #42d9f526}.tag{font-size:12px;color:var(--cyan);border:1px solid #42d9f54a;border-radius:99px;padding:6px 10px;white-space:nowrap}
+.hero{margin-bottom:20px}.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.hero h1{font-size:clamp(27px,5vw,40px);line-height:1.12;letter-spacing:-1px;margin:8px 0 10px}.hero p{color:var(--muted);margin:0;max-width:650px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}.stat{background:#111a2eaa;border:1px solid var(--line);padding:13px 15px;border-radius:15px}.stat strong{display:block;font-size:20px}.stat span{color:var(--muted);font-size:12px}
+.card{background:linear-gradient(145deg,#121c32f5,#0e172bf5);border:1px solid var(--line);border-radius:20px;padding:clamp(17px,4vw,28px);box-shadow:0 20px 60px #0003}.progress-head{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px;margin-bottom:10px}.progress{height:7px;background:#26334b;border-radius:20px;overflow:hidden;margin-bottom:24px}.progress>div{height:100%;width:20%;background:linear-gradient(90deg,var(--cyan),var(--purple));transition:width .25s}
+.qtitle{font-size:21px;line-height:1.3;margin:0 0 10px}.scenario{color:#d5e0f5;margin:0 0 18px}.label{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:1px;margin:18px 0 9px}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:330px;font-size:14px}th,td{text-align:left;padding:10px 13px;border-bottom:1px solid #26334b}th{color:var(--cyan);background:#101a30}td{color:#dce7fb}tr:last-child td{border-bottom:0}
+.options{display:grid;gap:10px}.option{width:100%;display:flex;align-items:flex-start;gap:12px;text-align:left;background:#0a1224;border:1px solid #2a3855;color:var(--text);padding:14px;border-radius:13px;cursor:pointer;transition:.15s}.option:hover{border-color:#7186b5;transform:translateY(-1px)}.option.selected{border-color:var(--cyan);background:#10233a}.option:disabled{cursor:default;transform:none}.letter{flex:0 0 26px;height:26px;display:grid;place-items:center;background:#202d48;border-radius:8px;color:#d5e5ff;font-size:12px;font-weight:800}.option pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:2px 0 0;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:#d8e6ff}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.btn{border:1px solid #354563;background:#18233b;color:var(--text);border-radius:11px;padding:11px 15px;font-weight:750;cursor:pointer}.btn:hover{filter:brightness(1.13)}.btn.primary{border:0;background:linear-gradient(100deg,#42d9f5,#8e8bff);color:#08101f}.btn:disabled{opacity:.4;cursor:not-allowed}.feedback{display:none;margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:16px;background:#0b1427}.feedback.show{display:block}.feedback.good{border-color:#44dfa077}.feedback.bad{border-color:#ff728577}.feedback h3{margin:0 0 8px;font-size:17px}.feedback p{margin:8px 0;color:#cbd8ee}.feedback pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#050a14;border:1px solid #293650;padding:13px;border-radius:10px;color:#8cf0d0;font:13px/1.6 ui-monospace,Consolas,monospace}
+.hintbox{display:none;margin-top:10px;padding:12px 14px;border-radius:10px;background:#2b2515;border:1px solid #68552b;color:#ffe5a2}.hintbox.show{display:block}.small{font-size:12px;color:var(--muted)}.bottom-nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.bottom-nav .btn{flex:1}.result{display:none;text-align:center;padding:26px 12px}.result.show{display:block}.score-ring{width:118px;height:118px;margin:12px auto 20px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at center,#101a2e 57%,transparent 59%),conic-gradient(var(--cyan) var(--score),#26334b 0);font-size:28px;font-weight:900}.result h2{font-size:28px;margin:6px 0}.result p{color:var(--muted)}.footer{text-align:center;color:#7283a2;font-size:12px;margin-top:22px}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#eaf7ff;color:#091326;padding:10px 16px;border-radius:99px;font-size:13px;font-weight:800;display:none;box-shadow:0 8px 30px #0005}.toast.show{display:block}
+@media(max-width:520px){.wrap{padding:17px 12px 32px}.top{align-items:flex-start}.tag{font-size:10px}.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:17px}.stat span{font-size:11px}.qtitle{font-size:19px}.option{padding:11px}.bottom-nav{display:grid;grid-template-columns:1fr 1fr}.bottom-nav .btn{padding:11px 8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">SQL</div><div>Data Analyst<br>Interview Lab</div></div>
+    <div class="tag">MYSQL · PRACTICE MODE</div>
+  </header>
+  <section class="hero">
+    <div class="eyebrow">Your first SQL challenge</div>
+    <h1>MySQL <span style="color:var(--cyan)">ORDER BY</span></h1>
+    <p>Five beginner-friendly, real-world interview questions. Read the scenario, choose a query, and learn from the explanation.</p>
+  </section>
+  <div class="stats">
+    <div class="stat"><strong>05</strong><span>Questions</span></div>
+    <div class="stat"><strong>Beginner</strong><span>Difficulty</span></div>
+    <div class="stat"><strong>~5 min</strong><span>Practice time</span></div>
+  </div>
+  <main class="card" id="practice">
+    <div id="quiz">
+      <div class="progress-head"><span id="progressText">QUESTION 1 OF 5</span><span id="scoreText">Score: 0</span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <h2 class="qtitle" id="questionTitle"></h2>
+      <p class="scenario" id="scenario"></p>
+      <div class="label">Sample employee table</div>
+      <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+      <div class="label">Choose the SQL query</div>
+      <div class="options" id="options"></div>
+      <div class="actions">
+        <button class="btn" id="hintBtn" type="button">💡 Hint</button>
+        <button class="btn primary" id="submitBtn" type="button" disabled>Submit Answer</button>
+      </div>
+      <div class="hintbox" id="hintBox"></div>
+      <section class="feedback" id="feedback" aria-live="polite">
+        <h3 id="feedbackTitle"></h3>
+        <p id="feedbackText"></p>
+        <div class="label">Correct SQL query</div>
+        <pre id="correctQuery"></pre>
+        <p id="explanation"></p>
+        <button class="btn" id="copyBtn" type="button">📋 Copy SQL</button>
+      </section>
+      <div class="bottom-nav">
+        <button class="btn" id="prevBtn" type="button" disabled>← Previous</button>
+        <button class="btn primary" id="nextBtn" type="button" disabled>Next Question →</button>
+      </div>
+    </div>
+    <section class="result" id="result">
+      <div class="eyebrow">Practice completed</div>
+      <div class="score-ring" id="scoreRing" style="--score:0deg"><span id="finalScore">0/5</span></div>
+      <h2 id="resultTitle">Nice work!</h2>
+      <p id="resultMessage"></p>
+      <div class="actions" style="justify-content:center">
+        <button class="btn primary" id="restartBtn" type="button">↻ Restart Practice</button>
+        <button class="btn" id="shareBtn" type="button">↗ Share Your Result</button>
+      </div>
+    </section>
+  </main>
+  <div class="footer">Keep practising. Small queries build strong SQL habits. · Data Analyst Interview Lab</div>
+</div>
+<div class="toast" id="toast">Copied!</div>
+<script>
+const questions = [
+ {title:"Q1 · Sort employees by salary",scenario:"Your manager wants to see employees from the highest salary to the lowest salary. Which query does that?",columns:["employee_name","salary"],rows:[["Asha",52000],["Ravi",68000],["Meena",45000],["Imran",61000]],hint:"Descending order places the largest values first. Look for the keyword that means descending.",options:[
+ "SELECT * FROM employees ORDER BY salary ASC;",
+ "SELECT * FROM employees ORDER BY salary DESC;",
+ "SELECT * FROM employees SORT BY salary DESC;",
+ "SELECT * FROM employees ORDER salary DESC;"
+ ],answer:1,explain:"DESC means descending, so the highest salary appears first. ASC would put the lowest salary first."},
+ {title:"Q2 · Sort names alphabetically",scenario:"HR needs an employee list in alphabetical order by employee name, from A to Z. Which query should you use?",columns:["employee_name","department"],rows:[["Zoya","Sales"],["Aman","IT"],["Kiran","HR"],["Divya","Finance"]],hint:"Alphabetical A-to-Z sorting is ascending order. The column to sort is employee_name.",options:[
+ "SELECT * FROM employees ORDER BY employee_name DESC;",
+ "SELECT * FROM employees GROUP BY employee_name;",
+ "SELECT * FROM employees ORDER BY employee_name ASC;",
+ "SELECT * FROM employees WHERE employee_name ASC;"
+ ],answer:2,explain:"ORDER BY employee_name ASC sorts names from A to Z. ASC is the default direction, so writing ASC is optional."},
+ {title:"Q3 · Sort by department",scenario:"A manager wants the employee list grouped in alphabetical order by department name. Which query sorts the results by department A to Z?",columns:["employee_name","department"],rows:[["Ravi","Sales"],["Asha","Finance"],["Nikhil","IT"],["Meena","HR"]],hint:"Sort using the department column and use ascending order for A-to-Z.",options:[
+ "SELECT * FROM employees ORDER BY department ASC;",
+ "SELECT * FROM employees ORDER BY employee_name ASC;",
+ "SELECT * FROM employees ORDER BY department DESC;",
+ "SELECT department FROM employees GROUP BY employee_name;"
+ ],answer:0,explain:"ORDER BY department ASC sorts the result rows according to department names in ascending alphabetical order."},
+ {title:"Q4 · Highest salary first, then names",scenario:"Two employees can have the same salary. Your manager wants the highest salaries first, and employees with the same salary listed alphabetically by name. Which query meets both requirements?",columns:["employee_name","salary"],rows:[["Zoya",60000],["Aman",60000],["Kiran",72000],["Divya",48000]],hint:"ORDER BY can use more than one column. Put salary first, then employee_name as the tie-breaker.",options:[
+ "SELECT * FROM employees ORDER BY employee_name ASC, salary DESC;",
+ "SELECT * FROM employees ORDER BY salary DESC, employee_name ASC;",
+ "SELECT * FROM employees ORDER BY salary ASC, employee_name DESC;",
+ "SELECT * FROM employees ORDER BY salary AND employee_name;"
+ ],answer:1,explain:"The first sort key is salary DESC. When salaries tie, employee_name ASC sorts those employees alphabetically."},
+ {title:"Q5 · Newest hire first",scenario:"Recruitment wants to review the most recently hired employees first. The table has a hire_date column. Which query is appropriate?",columns:["employee_name","hire_date"],rows:[["Asha","2023-06-12"],["Ravi","2025-02-03"],["Meena","2024-09-21"],["Imran","2022-11-18"]],hint:"For dates, descending order puts later (more recent) dates before earlier dates.",options:[
+ "SELECT * FROM employees ORDER BY hire_date ASC;",
+ "SELECT * FROM employees ORDER BY hire_date DESC;",
+ "SELECT * FROM employees WHERE hire_date DESC;",
+ "SELECT * FROM employees ORDER BY employee_name DESC;"
+ ],answer:1,explain:"ORDER BY hire_date DESC sorts dates from newest to oldest, so the most recent hire appears first."}
+];
+let current=0,selected={},checked={},scores={};
+const $=id=>document.getElementById(id);
+function render(){
+ const q=questions[current]; $("quiz").style.display="block"; $("result").classList.remove("show");
+ $("progressText").textContent=`QUESTION ${current+1} OF ${questions.length}`;
+ $("scoreText").textContent=`Score: ${Object.values(scores).filter(Boolean).length}`;
+ $("progressBar").style.width=`${((current+1)/questions.length)*100}%`;
+ $("questionTitle").textContent=q.title; $("scenario").textContent=q.scenario;
+ $("tableHead").innerHTML="<tr>"+q.columns.map(c=>`<th>${escapeHtml(c)}</th>`).join("")+"</tr>";
+ $("tableBody").innerHTML=q.rows.map(row=>"<tr>"+row.map(v=>`<td>${escapeHtml(String(v))}</td>`).join("")+"</tr>").join("");
+ $("options").innerHTML="";
+ q.options.forEach((opt,i)=>{const b=document.createElement("button");b.className="option"+(selected[current]===i?" selected":"");b.type="button";b.disabled=!!checked[current];b.innerHTML=`<span class="letter">${"ABCD"[i]}</span><pre>${escapeHtml(opt)}</pre>`;b.onclick=()=>{selected[current]=i;render()};$("options").appendChild(b)});
+ $("submitBtn").disabled=selected[current]===undefined||!!checked[current];
+ $("hintBox").classList.remove("show");$("hintBox").textContent=q.hint;
+ $("hintBtn").onclick=()=>$("hintBox").classList.toggle("show");
+ const f=$("feedback");f.classList.toggle("show",!!checked[current]);f.classList.toggle("good",checked[current]&&scores[current]);f.classList.toggle("bad",checked[current]&&!scores[current]);
+ if(checked[current]){const correct=scores[current];$("feedbackTitle").textContent=correct?"✅ Correct answer!":"❌ Not quite — learn from this one";$("feedbackText").textContent=correct?"You selected the correct query.":"Review the correct query below, then try applying the same logic in the next question.";$("correctQuery").textContent=q.options[q.answer];$("explanation").textContent=q.explain}
+ $("submitBtn").onclick=submit;
+ $("prevBtn").disabled=current===0;
+ $("nextBtn").disabled=!checked[current];
+ $("nextBtn").textContent=current===questions.length-1?"View Results →":"Next Question →";
+ $("nextBtn").onclick=()=>{if(current<questions.length-1){current++;render()}else showResult()};
+ $("prevBtn").onclick=()=>{if(current>0){current--;render()}};
+ $("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(q.options[q.answer]);toast("SQL copied to clipboard")}catch(e){const t=document.createElement("textarea");t.value=q.options[q.answer];document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();toast("SQL copied to clipboard")}};
+}
+function submit(){if(selected[current]===undefined||checked[current])return;checked[current]=true;scores[current]=selected[current]===questions[current].answer;render();$("feedback").scrollIntoView({behavior:"smooth",block:"nearest"})}
+function showResult(){ $("quiz").style.display="none";$("result").classList.add("show");const n=Object.values(scores).filter(Boolean).length; $("finalScore").textContent=`${n}/5`; $("scoreRing").style.setProperty("--score",`${n/5*360}deg`);$("resultTitle").textContent=n===5?"Excellent work!":n>=3?"Good progress!":"Keep practising!";$("resultMessage").textContent=n===5?"Perfect score! You understand these ORDER BY basics.":n>=3?"You have a good start. Review the explanations and practise again to strengthen your SQL skills.":"Every attempt helps. Review the correct queries, then restart and try again."; $("restartBtn").onclick=()=>{current=0;selected={};checked={};scores={};render();window.scrollTo({top:0,behavior:"smooth"})};$("shareBtn").onclick=async()=>{const text=`I scored ${n}/5 in the MySQL ORDER BY practice at Data Analyst Interview Lab! Practise your SQL too.`;if(navigator.share){try{await navigator.share({title:"My SQL Practice Score",text,url:location.href})}catch(e){}}else{try{await navigator.clipboard.writeText(text+" "+location.href);toast("Result text and link copied")}catch(e){toast("Share is not supported in this browser")}}};window.scrollTo({top:0,behavior:"smooth"})}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
+render();
+</script>
+</body>
+</html>
